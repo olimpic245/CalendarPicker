@@ -32,6 +32,7 @@ export default function Day(props) {
     selectedRangeEndStyle,
     textStyle,
     todayTextStyle,
+    todayDate,
     selectedDayTextStyle: propSelectedDayTextStyle,
     selectedRangeStartTextStyle,
     selectedRangeEndTextStyle,
@@ -45,7 +46,7 @@ export default function Day(props) {
   } = props;
 
   const thisDay = new Date(year, month, day, 12);
-  const today = new Date();
+  const today = todayDate || new Date();
 
   let dateOutOfRange;
   let computedSelectedDayStyle = styles.dayButton; // may be overridden depending on state
@@ -120,10 +121,11 @@ export default function Day(props) {
       end: selectedEndDate
     })
 
+  const is_select = isThisDaySameAsSelectedStart || isThisDateInSelectedRange;
+  const isToday = isSameDay(thisDay, today);
   // If date is in range let's apply styles
   if (!dateOutOfRange || isThisDaySameAsSelectedStart || isThisDaySameAsSelectedEnd || isThisDateInSelectedRange) {
     // set today's style
-    let isToday = isSameDay(thisDay, today);
     if (isToday) {
       computedSelectedDayStyle = styles.selectedToday;
       // todayTextStyle prop overrides selectedDayTextColor (created via makeStyles)
@@ -194,12 +196,13 @@ export default function Day(props) {
         <View style={[styles.dayWrapper, custom.containerStyle]}>
           <View style={[custom.style, computedSelectedDayStyle, selectedDayStyle]}>
             <Text style={[styles.dayLabel, textStyle,
-            styles.disabledText, disabledDatesTextStyle,
-            styles.selectedDisabledText, selectedDisabledDatesTextStyle,
+              styles.disabledText, disabledDatesTextStyle,
+              styles.selectedDisabledText, selectedDisabledDatesTextStyle,
               overrideOutOfRangeTextStyle
             ]}>
               {day}
             </Text>
+            {isToday && props.todayPoint ? props.todayPoint(is_select) : null}
           </View>
         </View>
       );
@@ -213,6 +216,7 @@ export default function Day(props) {
             <Text style={[styles.dayLabel, textStyle, custom.textStyle, selectedDayTextStyle]}>
               {day}
             </Text>
+            {isToday && props.todayPoint ? props.todayPoint(is_select) : null}
           </TouchableOpacity>
         </View>
       );
@@ -232,6 +236,7 @@ export default function Day(props) {
           <Text style={[textStyle, styles.disabledText, disabledDatesTextStyle, custom.textStyle]}>
             {day}
           </Text>
+          {isToday && props.todayPoint ? props.todayPoint(is_select) : null}
         </View>
       </View>
     );

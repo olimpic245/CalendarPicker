@@ -66,6 +66,8 @@ export default class CalendarPicker extends Component {
     selectedRangeStartStyle: null,
     selectedRangeEndStyle: null,
     selectedRangeStyle: null,
+    todayDate: null,
+    todayPoint: null,
     fontScaling: true,
   };
 
@@ -404,6 +406,8 @@ export default class CalendarPicker extends Component {
       showDayStragglers: this.props.showDayStragglers,
       disabledDatesTextStyle: this.props.disabledDatesTextStyle,
       textStyle: this.props.textStyle,
+      todayDate: this.props.todayDate,
+      todayPoint: this.props.todayPoint,
       todayTextStyle: this.props.todayTextStyle,
       selectedDayTextStyle: this.props.selectedDayTextStyle,
       selectedRangeStartTextStyle: this.props.selectedRangeStartTextStyle,
