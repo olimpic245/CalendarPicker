@@ -144,7 +144,7 @@ export function makeStyles(params) {
       alignItems: 'center',
       alignSelf: 'center',
       justifyContent: 'space-between',
-      width: containerWidth,
+      width: 350*scaler,
       padding: 5*scaler,
       paddingBottom: 3*scaler,
       marginBottom: 10*scaler,
